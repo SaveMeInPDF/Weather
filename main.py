@@ -1,18 +1,22 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import requests
-import json
 import time
 import matplotlib
 matplotlib.use('TkAgg')
+while True:
+    c = input("ведите название вашего города на английском: ")
+    today = time.strftime('%Y-%m-%d')
+    in_7_days = time.strftime('%Y-%m-%d', time.localtime(time.time() + 7 * 24 * 60 * 60))
+    r = requests.get(
+        f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{c.capitalize()}/{today}/{in_7_days}?key=LXWJM2GK64V6YYL3VLF635DJN')
+    try:
+        data = r.json()
+    except Exception:
+        print('Неверное название города')
+        continue
+    break
 
-c = input("ведите название вашего города на английском: ")
-today = time.strftime('%Y-%m-%d')
-in_7_days = time.strftime('%Y-%m-%d', time.localtime(time.time() + 7 * 24 * 60 * 60))
-r = requests.get(
-    f'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{c.capitalize()}/{today}/{in_7_days}?key=LXWJM2GK64V6YYL3VLF635DJN')
-data = r.json()
 # f = open('data.json', 'w')
 # json.dump(data, f, indent=2)
 
